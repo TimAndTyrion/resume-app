@@ -2,8 +2,6 @@ import React, {useEffect, useMemo, useRef} from "react";
 import {Box, Divider, Grid, Typography} from "@mui/material";
 import {JobCard} from "./JobCard.tsx";
 import {jobData} from "./JobData.ts";
-import {ProjectData} from "./ProjectData.ts";
-import {ProjectCard} from "./ProjectCard.tsx";
 
 interface MainRightProps {
     setIsAboutVisible: (isVisible: boolean) => void;
