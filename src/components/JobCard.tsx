@@ -27,7 +27,7 @@ export function JobCard({job}: { job: JobHistory }): React.ReactElement {
                 job.experiences.map((exp, index) => {
                   return (<ListItem key={index} sx={{ display: 'list-item' }}>{exp}</ListItem>)
                 }) 
-              }
+              }  
             </List>
           </Typography>
           <Divider sx={{marginY: 1}}/>
