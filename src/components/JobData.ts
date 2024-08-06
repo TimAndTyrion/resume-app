@@ -60,7 +60,4 @@ export const jobData: JobHistory[] = [
         ],
         skills: ['C#', 'ASP.NET', 'JavaScript', 'JQuery', 'AJAX', 'HTML', 'CSS', 'SQL', 'Microsoft Visual Studio .NET', 'NUnit Testing']
     }
-
-
-
 ]
