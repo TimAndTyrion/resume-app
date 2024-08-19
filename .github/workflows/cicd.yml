@@ -14,17 +14,17 @@ jobs:
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_TOKEN }}
       - name: Build Docker Image
-        run: docker build -t TimAndTyrion/resume-app .
+        run: docker build -t colburnt/resume-app .
       - name: Publish image to docker hub
-        run: docker push TimAndTyrion/resume-app:latest
+        run: docker push colburnt/resume-app:latest
       
   deploy:
     needs: build
     runs-on: aws-ec2
     steps:
       - name: Pull Image from docker hub
-        run: docker pull TimAndTyrion/resume-app:latest
+        run: docker pull colburnt/resume-app:latest
       - name: Delete old container
         run: docker rm -f resumeAppContainer
       - name: Run docker container
-        run: docker run -d -p 3000:80 --name resumeAppContainer TimAndTyrion/resume-app:latest
+        run: docker run -d -p 3000:80 --name resumeAppContainer colburnt/resume-app:latest
