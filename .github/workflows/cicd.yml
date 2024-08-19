@@ -24,7 +24,7 @@ jobs:
     steps:
       - name: Pull Image from docker hub
         run: docker pull TimAndTyrion/resume-app:latest
-      - name: Delete Old Container
+      - name: Delete old container
         run: docker rm -f resumeAppContainer
       - name: Run docker container
         run: docker run -d -p 3000:80 --name resumeAppContainer TimAndTyrion/resume-app:latest
