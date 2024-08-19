@@ -35,7 +35,7 @@ export function JobCard({job}: { job: JobHistory }): React.ReactElement {
             {job.skills.map(skill => (
               <Chip key={skill} sx={{background: '#344257', color: '#75e5d3'}} label={skill}/>
             ))}
-          </Box>
+          </Box> 
         </Grid>
       </Grid>
     </CardContent>
