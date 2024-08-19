@@ -1,0 +1,30 @@
+name: CICD
+
+on:
+  push:
+    branches:
+      - deploy-to-ec2
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Checkout Source
+        uses: actions/chekcout@v3
+      - name: Login to Docker Hub
+        uses: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_TOKEN }}
+      - name: Build Docker Image
+        run: docker build -t TimAndTyrion/resume-app .
+      - name: Publish image to docker hub
+        run: docker push TimAndTyrion/resume-app:latest
+      
+  deploy:
+    needs: build
+    runs-on: aws-ec2
+    steps:
+      - name: Pull Image from docker hub
+        run: docker pull TimAndTyrion/resume-app:latest
+      - name: Delete Old Container
+        run: docker rm -f resumeAppContainer
+      - name: Run docker container
+        run: docker run -d -p 3000:80 --name resumeAppContainer TimAndTyrion/resume-app:latest

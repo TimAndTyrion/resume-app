@@ -1,23 +1,26 @@
 # Use an official Node.js runtime as the base image
-FROM node:alpine
-
+FROM node:alpine as build 
 # Set the working directory in the container
 WORKDIR /app
-
-# Copy package.json and package-lock.json to the container
 COPY package*.json ./
-
-# Install dependencies
 RUN npm install
-
-# Copy the rest of the application code to the container
 COPY . .
-
-# Build the React app
 RUN npm run build
 
+#start of nginx changes
+
+FROM nginx:1.23-alpine
+WORKDIR /usr/share/nginx/html
+RUN rm -rf *
+COPY --from=build /app/build . 
+
+EXPOSE 80
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
+
+
+#old way before nginx
 # expose port 3000 to tell Docker that the container listens on the specified network ports at runtime
-EXPOSE 3000
+#EXPOSE 3000
 
 # Set the command to run the production build of the React app
-CMD ["npm", "start"]
+#CMD ["npm", "run", "start",  "--", "--host", "0.0.0.0", "--port", "3000"]
